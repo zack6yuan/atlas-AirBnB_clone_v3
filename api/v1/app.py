@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 
 app.register_blueprint(app_views)
-
+# add wildcard import
 
 
 @app.teardown_appcontext
