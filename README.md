@@ -7,11 +7,14 @@ The console is the first segment of the AirBnB project at Holberton School that 
 * Do operations on objects (count, compute stats, etc...)
 * Update attributes of an object
 * Destroy an object
-
-#### Our contribution (Max Logan and Zack Yuan)
-* Gain an understanding of: 
+a
+### Our contribution (Max Logan and Zack Yuan)
+#### Gain an understanding of: 
 * API's (Application Programming Interfaces).
 * Usage and benefits of implementing an API.
+* How APIs communicate with each other.
+* HTTP Methods: GET, POST, PUT, DELETE.
+* API Testing.
 
 ## Table of Content
 * [Environment](#environment)
