@@ -47,6 +47,7 @@ class HBNBCommand(cmd.Cmd):
                     try:
                         value = int(value)
                     except TypeError:
+                        return ("Value is not valid ")
                         try:
                             value = float(value)
                             continue
