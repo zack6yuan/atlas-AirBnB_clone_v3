@@ -48,9 +48,9 @@ class HBNBCommand(cmd.Cmd):
                         value = int(value)
                     except TypeError:
                         return ("Value is not valid ")
-                        try:
-                            value = float(value)
-                            continue
+                    try:
+                        value = float(value)
+                        continue
                 new_dict[key] = value
         return new_dict
 
