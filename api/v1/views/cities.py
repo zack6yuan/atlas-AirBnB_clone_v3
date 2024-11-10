@@ -17,7 +17,7 @@ def city_object():
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def city_delete():
-    """ Method: Delets a city object """
+    """ Method: Delete a city object """
 
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
