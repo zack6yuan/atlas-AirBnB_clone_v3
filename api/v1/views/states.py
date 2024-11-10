@@ -22,4 +22,4 @@ def create_state():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state():
-    """ Method: Updates a State object """
+    """ Method: Update State object """
