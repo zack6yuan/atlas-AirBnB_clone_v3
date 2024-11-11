@@ -51,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
                     try:
                         value = float(value)
                         continue
-        new_dict[key] = value
+                new_dict[key] = value
         return new_dict
 
     def do_create(self, arg):
