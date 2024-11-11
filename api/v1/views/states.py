@@ -18,7 +18,7 @@ def state_list():
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def state_get(state_id):
     """ Method: Retrieve a State object """
-    obj = storage.all(State).values()
+    obj = storage.get(State, state_id)
     if obj is not None:
         return jsonify(obj.to_dict())
     else:
@@ -28,7 +28,6 @@ def state_get(state_id):
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def state_object(state_id):
     """ Method: Delete a State object """
-    dict = {}
     obj = storage.get(State, state_id)
     if obj is not None:
         storage.delete(obj)
@@ -36,7 +35,7 @@ def state_object(state_id):
     if obj is None:
         abort(404)
     else:
-        return(dict)
+        return jsonify({}), 200
     
 
 
