@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Review Module """
 from api.v1.views import app_views
-from flask import Flask
+from flask import jsonify
 from models.review import Review
 from models.place import Place
 
@@ -14,11 +14,22 @@ def review_list():
 @app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
 def review_object():
     """ Method: Retrieve an review object """
-
+    obj = storage.get(Review, review_id)
+    if obj is not None:
+        return jsonify(obj.to_dict())
+    else:
+        abort(404)
 
 @app_views.route('/reviews/<review_id>', methods=['DELETE'], strict_slashes=False)
 def review_delete():
     """ Method: Delete a review object """
+    obj = storage.get(Review, review_id)
+    if obj is not None:
+        storage.delete(obj)
+        storage.save()
+    if obj is None:
+        abort(404)
+    return jsonify({}), 200
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['POST'], strict_slashes=False)
