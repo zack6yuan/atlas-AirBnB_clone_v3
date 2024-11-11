@@ -23,8 +23,15 @@ def place_object():
 
 
 @app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
-def place_delete():
+def place_delete(place_id):
     """ Method: Delete a place object """
+    obj = storage.get(Place, place_id)
+    if obj is not None:
+        storage.delete(obj)
+        storage.save()
+    if obj is None:
+        abort(404)
+    return jsonify({}), 200
 
 
 

@@ -34,8 +34,7 @@ def amenity_object(amenity_id):
         storage.save()
     if obj is None:
         abort(404)
-    else:
-        return jsonify({}), 200
+    return jsonify({}), 200
     
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
