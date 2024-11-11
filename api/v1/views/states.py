@@ -39,10 +39,13 @@ def state_object(state_id):
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
-def state_create():
+def state_create(state_id):
     """ Method: Create a State """
+    
+    
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def state_update(state_id):
     """ Method: Update State object """
+    state_data = request.get_json()
