@@ -26,8 +26,8 @@ def amenity_object(amenity_id):
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
-def amenity_object(amenity_id):
-    """ Method: Delete a State object """
+def amenity_delete(amenity_id):
+    """ Method: Delete an amenity object """
     obj = storage.get(Amenity, amenity_id)
     if obj is not None:
         storage.delete(obj)
