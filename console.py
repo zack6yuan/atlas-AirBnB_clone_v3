@@ -52,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
                         value = float(value)
                     except TypeError:
                         return ("Value is not valid")
-                new_dict[key] = value
+            new_dict[key] = value
         return new_dict
 
     def do_create(self, arg):
