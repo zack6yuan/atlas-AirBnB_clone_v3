@@ -47,8 +47,8 @@ def state_create(state_id):
     if 'name' not in state_dict:
         abort(400, "Missing name")
     new_state = state
-    
-    
+
+
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def state_update(state_id):
     """ Method: Update State object """
