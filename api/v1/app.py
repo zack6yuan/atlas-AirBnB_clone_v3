@@ -33,14 +33,14 @@ def teardown():
     """ Method: Remove the current session """
     storage.close()
 
+@app.errorhandler(404)
+def not_found(error):
+    """ Handler for 404 errors that returns a JSON-formatted 404 status code response """
+    return {"error": "Not found"}, 404
+
 
 if __name__ == "__main__":
     """ Method: Set host and port for usage """
     host = os.getenv("HBNB_API_HOST", default="0.0.0.0")
     port = os.getenv("HBNB_API_PORT", default=5000)
     app.run(host, port, threaded=True)
-
-@app.errorhandler(404)
-def not_found(error):
-    """ Handler for 404 errors that returns a JSON-formatted 404 status code response """
-    return {"error": "Not found"}, 404
