@@ -52,9 +52,9 @@ class FileStorage:
         """deserializes the JSON file to __objects"""
         try:
             with open(self.__file_path, 'r') as f:
-                if f.readable() and f.read(1):
-                    f.seek(0)
-                    jo = json.load(f)
+                content = f.read()
+                if content:
+                    jo = json.loads(content)
                 else:
                     return
             for key in jo:
