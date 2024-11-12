@@ -12,13 +12,17 @@ from models import storage
 def city_list(state_id):
     """ Method: Retrieve list of all city objects of a state """
     obj = storage.get(State, state_id)
+    if not State:
+        abort(404)
+    else:
+        return jsonify(obj.to_dict())
 
 
 @app_views.route('cities/<city_id>', methods=['GET'], strict_slashes=False)
 def city_object(city_id):
     """ Method: Retrieve a city object """
     obj = storage.get(City, city_id)
-    if obj is not None:
+    if obj:
         return jsonify(obj.to_dict())
     else:
         abort(404)
@@ -28,10 +32,10 @@ def city_object(city_id):
 def city_delete(city_id):
     """ Method: Delete a city object """
     obj = storage.get(City, city_id)
-    if obj is not None:
+    if obj:
         storage.delete(obj)
         storage.save()
-    if obj is None:
+    if not obj:
         abort(404)
     return jsonify({}), 200
 
@@ -45,7 +49,7 @@ def city_create(state_id):
         abort(404)
     elif not request.is__json():
         abort(404, "Not a JSON")
-    elif 'name' not in cities:
+    elif 'name' not in obj:
         abort(404, "Missing name")
 
 
