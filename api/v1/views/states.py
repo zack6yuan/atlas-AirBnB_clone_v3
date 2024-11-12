@@ -41,12 +41,14 @@ def state_object(state_id):
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def state_create(state_id):
     """ Method: Create a State """
+    obj = storage.get(State, state_id)
     if not request.is__json():
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
     state_dict = request.get__json()
     if 'name' not in state_dict:
         abort(400, "Missing name")
-    new_state = state
+    return jsonify(obj.to_dict()), 200
+    
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
