@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Method: Return JSON """
 from api.v1.views import app_views
-from flask import Flask, jsonify
+from flask import jsonify
 from models import storage
 from models.state import State
 from models.user import User
@@ -16,12 +16,12 @@ def return_json():
     return (jsonify({"status": "OK"}))
 
 
-@app_views.route('/status', strict_slashes=False)
-def get_status():
+@app_views.route('/stats', strict_slashes=False)
+def get_stats():
     '''JSON Responses'''
-    status = {'states': State, 'users': User,
+    stats = {'states': State, 'users': User,
              'amenities': Amenity, 'cities': City,
              'places': Place, 'reviews': Review}
-    for key in status:
-        status[key] = storage.count(status[key])
-    return jsonify(status)
+    for key in stats:
+        stats[key] = storage.count(stats[key])
+    return jsonify(stats)
