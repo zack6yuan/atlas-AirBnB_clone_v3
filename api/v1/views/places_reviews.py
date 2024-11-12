@@ -14,7 +14,7 @@ def review_list():
 
 
 @app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
-def review_object():
+def review_object(review_id):
     """ Method: Retrieve an review object """
     obj = storage.get(Review, review_id)
     if obj is not None:
@@ -23,7 +23,7 @@ def review_object():
         abort(404)
 
 @app_views.route('/reviews/<review_id>', methods=['DELETE'], strict_slashes=False)
-def review_delete():
+def review_delete(review_id):
     """ Method: Delete a review object """
     obj = storage.get(Review, review_id)
     if obj is not None:
