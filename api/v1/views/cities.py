@@ -59,5 +59,5 @@ def city_update(city_id):
         abort(404, "Not a JSON")
     city_data = request.get__json()
     for key, value in city_data.items():
-        # search dict for key
-        # return city object
+    # search dict for key
+    # return city object
