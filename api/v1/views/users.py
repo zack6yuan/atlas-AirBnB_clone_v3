@@ -8,41 +8,44 @@ from models import storage
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def user_list():
-    """ Method: Retrieve list of all amenity objects """
+    """ Method: Retrieve list of all user objects """
+    users = storage.all(User).values()
+    return jsonify([user.to_dict() for user in users])
 
-
-@app_views.route('/user/<user_id>', methods=['GET'], strict_slashes=False)
-def user_object():
-    """ Method: Retrieve an user object """
-    obj = storage.all(User).values()
-    if obj is not None:
-        return jsonify(obj.to_dict())
-    else:
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+def get_user(user_id):
+    """ Method: Retrieve a user object """
+    user = storage.get(User, user_id)
+    if user is None:
         abort(404)
-
+    return jsonify(user.to_dict())
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
-def user_create():
-    """ Method: Create an user object """
-    if not request.is__json:
-        abort(404, "Not a JSON")
-    elif 'email' not in users:
+def create_user():
+    """ Method: Create a new user """
+    if not request.is_json:
+        abort(400, "Not a JSON")
+    user_data = request.get_json()
+    if 'email' not in user_data:
         abort(400, "Missing email")
-    elif 'password' not in users:
+    if 'password' not in user_data:
         abort(400, "Missing password")
-    else:
-        users = request.get.__json()
-        user_data = users
-        return (user_data)
-
+    new_user = User(**user_data)
+    storage.new(new_user)
+    storage.save()
+    return jsonify(new_user.to_dict()), 201
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
-def user_update(user_id):
-    """ Method: Update an user object """
-    obj = storage.get(User, user_id)
-    if user_id is not User:
+def update_user(user_id):
+    """ Method: Update a user object """
+    user = storage.get(User, user_id)
+    if user is None:
         abort(404)
-    elif not request.is__json():
-        abort(404, "Not a JSON")
-    user_data = request.get__json()
+    if not request.is_json:
+        abort(400, "Not a JSON")
+    user_data = request.get_json()
     for key, value in user_data.items():
+        if key not in ['id', 'email', 'created_at', 'updated_at']:
+            setattr(user, key, value)
+    storage.save()
+    return jsonify(user.to_dict()), 200
