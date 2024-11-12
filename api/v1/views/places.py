@@ -63,4 +63,8 @@ def place_update(place_id):
         abort(404, "Not a JSON")
     place_data = request.get__json()
     for key, value in place_data.items():
-        # search dict for specific key
+            # search dict for specific key
+            if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
+                setattr(obj, key, value)
+        storage.save()
+        return jsonify(obj.to_dict()), 200
