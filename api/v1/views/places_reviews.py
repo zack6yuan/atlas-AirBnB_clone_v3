@@ -34,7 +34,8 @@ def review_delete(review_id):
     return jsonify({}), 200
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['POST'], strict_slashes=False)
+@app_views.route('/places/<place_id>/reviews',
+                 methods=['POST'], strict_slashes=False)
 def review_create(place_id):
     """ Method: Create a review """
     if place_id is not Place:
@@ -51,5 +52,13 @@ def review_create(place_id):
 
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
-def review_update():
+def review_update(review_id):
     """ Method: Update a review object """
+    obj = storage.get(Review, review_id)
+    if review_id is not Review:
+        abort(404)
+    elif not request.is__json():
+        abort(404, "Not a JSON")
+    user_data = request.get__json()
+    for key, value in user_data.items():
+        # search dict for specific key

@@ -43,9 +43,12 @@ def state_create(state_id):
     """ Method: Create a State """
     if not request.is__json():
         abort(404, "Not a JSON")
-
-
-
+    state_dict = request.get__json()
+    if 'name' not in state_dict:
+        abort(400, "Missing name")
+    new_state = state
+    
+    
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def state_update(state_id):
     """ Method: Update State object """
