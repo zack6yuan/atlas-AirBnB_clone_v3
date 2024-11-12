@@ -20,7 +20,7 @@ def return_json():
 def get_stats():
     '''JSON Responses'''
     stats = {'states': State, 'users': User,
-                    'amenities': Amenity, 'cities': City,
+                'amenities': Amenity, 'cities': City,
                     'places': Place, 'reviews': Review}
     for key in stats:
         stats[key] = storage.count(stats[key])
