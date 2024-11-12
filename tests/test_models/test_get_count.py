@@ -8,7 +8,11 @@ import unittest
 print("All objects: {}".format(storage.count()))
 print("State objects: {}".format(storage.count(State)))
 
-first_state_id = list(storage.all(State).values())[0].id
+states = list(storage.all(State).values())
+if states:
+    first_state_id = states[0].id
+else:
+    first_state_id = None
 
 class TestStorageMethods(unittest.TestCase):
     def setUp(self):
