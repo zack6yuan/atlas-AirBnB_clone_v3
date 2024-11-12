@@ -15,7 +15,8 @@ def state_list():
     return jsonify(states)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>',
+                 methods=['GET'], strict_slashes=False)
 def state_get(state_id):
     """ Method: Retrieve a State object """
     obj = storage.get(State, state_id)
@@ -51,7 +52,8 @@ def state_create(state_id):
     
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/states/<state_id>',
+                 methods=['PUT'], strict_slashes=False)
 def state_update(state_id):
     """ Method: Update State object """
     obj = storage.get(State, state_id)
