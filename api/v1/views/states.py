@@ -41,6 +41,9 @@ def state_object(state_id):
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def state_create(state_id):
     """ Method: Create a State """
+    if not request.is__json():
+        abort(404, "Not a JSON")
+
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
