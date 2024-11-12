@@ -58,3 +58,4 @@ def amenity_update(amenity_id):
         abort(404)
     elif not request.is__json():
         abort(400, "Not a JSON")
+            

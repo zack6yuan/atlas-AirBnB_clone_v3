@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ User Module """
 from api.v1.views import app_views
-from flask import Flask, jsonify, abort, request
+from flask import jsonify, abort, request
 from models.user import User
-from mofels import storage
+from models import storage
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -44,4 +44,6 @@ def user_update(user_id):
         abort(404)
     elif not request.is__json():
         abort(404, "Not a JSON")
-        
+    user_data = request.get__json()
+    for key, value in user_data.items():
+        if 
