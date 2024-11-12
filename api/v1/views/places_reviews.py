@@ -44,7 +44,7 @@ def review_create(place_id):
     elif 'user_id' not in places:
         abort(404, "Missing user_id")
     elif user_id is not User:
-        
+         
     review_data = request.get__json()
     
         
