@@ -16,12 +16,12 @@ def return_json():
     return (jsonify({"status": "OK"}))
 
 
-@app_views.route('/stats', strict_slashes=False)
-def get_stats():
+@app_views.route('/status', strict_slashes=False)
+def get_status():
     '''JSON Responses'''
-    stats = {'states': State, 'users': User,
+    status = {'states': State, 'users': User,
              'amenities': Amenity, 'cities': City,
              'places': Place, 'reviews': Review}
-    for key in stats:
-        stats[key] = storage.count(stats[key])
-    return jsonify(stats)
+    for key in status:
+        status[key] = storage.count(status[key])
+    return jsonify(status)
