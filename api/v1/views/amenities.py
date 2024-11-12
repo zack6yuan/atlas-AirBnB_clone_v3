@@ -61,3 +61,9 @@ def amenity_update(amenity_id):
         abort(404)
     elif not request.is__json():
         abort(400, "Not a JSON")
+    amenity_data = request.get__json()
+    for key, value in amenity_data.items():
+        if key not in ['id', 'created_at', 'updated_at']:
+            setattr(obj, key, value)
+    storage.save()
+    return jsonify(obj.to_dict()), 200
