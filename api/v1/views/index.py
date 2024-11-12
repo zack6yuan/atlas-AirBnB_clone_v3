@@ -10,16 +10,18 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 
+
 @app_views.route('/status', strict_slashes=False)
 def return_json():
     return (jsonify({"status": "OK"}))
+
 
 @app_views.route('/stats', strict_slashes=False)
 def get_stats():
     '''JSON Responses'''
     stats = {'states': State, 'users': User,
-            'amenities': Amenity, 'cities': City,
-            'places': Place, 'reviews': Review}
+        'amenities': Amenity, 'cities': City,
+        'places': Place, 'reviews': Review}
     for key in stats:
         stats[key] = storage.count(stats[key])
     return jsonify(stats)
