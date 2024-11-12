@@ -25,7 +25,8 @@ def state_get(state_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<state_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def state_object(state_id):
     """ Method: Delete a State object """
     obj = storage.get(State, state_id)
@@ -35,14 +36,11 @@ def state_object(state_id):
     if obj is None:
         abort(404)
     return jsonify({}), 200
-    
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def state_create(state_id):
     """ Method: Create a State """
-    
-    
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)

@@ -7,7 +7,8 @@ from models.city import City
 from models import storage
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places',
+                 methods=['GET'], strict_slashes=False)
 def place_list():
     """ Method: Retrieve list of all place objects of a City """
 
@@ -22,7 +23,8 @@ def place_object():
         abort(404)
 
 
-@app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/places/<place_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def place_delete(place_id):
     """ Method: Delete a place object """
     obj = storage.get(Place, place_id)
@@ -34,8 +36,8 @@ def place_delete(place_id):
     return jsonify({}), 200
 
 
-
-@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places',
+                 methods=['POST'], strict_slashes=False)
 def place_create(city_id):
     """ Method: Create an place object """
     city = storage.get(City, city_id)
@@ -61,4 +63,3 @@ def place_update(place_id):
         abort(404, "Not a JSON")
     place_data = request.get__json()
     for key, value in place_data.items():
-        

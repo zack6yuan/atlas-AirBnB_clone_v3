@@ -2,8 +2,10 @@
 """
 App Module
 
-This module sets up a Flask web application for the AirBnB clone project. It registers
-the application blueprint, configures the teardown context, and sets up error handling
+This module sets up a Flask web application for the AirBnB clone project.
+It registers the application blueprint,
+configures the teardown context,
+and sets up error handling
 for 404 errors.
 
 Functions:
@@ -11,9 +13,10 @@ Functions:
     not_found(error): Returns a JSON-formatted 404 status code response.
 
 Usage:
-    The application can be run directly, and it will use the host and port specified
-    in the environment variables HBNB_API_HOST and HBNB_API_PORT, or default to
-    "0.0.0.0" and 5000 respectively.
+    The application can be run directly,
+    and it will use the host and port specified
+    in the environment variables HBNB_API_HOST and HBNB_API_PORT,
+    or default to "0.0.0.0" and 5000 respectively.
 """
 
 import os
@@ -33,9 +36,11 @@ def teardown():
     """ Method: Remove the current session """
     storage.close()
 
+
 @app.errorhandler(404)
 def not_found(error):
-    """ Handler for 404 errors that returns a JSON-formatted 404 status code response """
+    """ Handler for 404 errors that returns a
+        JSON-formatted 404 status code response """
     return (jsonify({"error": "Not found"}, 404))
 
 

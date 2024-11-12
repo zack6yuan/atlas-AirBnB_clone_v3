@@ -20,6 +20,7 @@ def user_object():
     else:
         abort(404)
 
+
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def user_create():
     """ Method: Create an user object """
@@ -33,7 +34,6 @@ def user_create():
         users = request.get.__json()
         user_data = users
         return (user_data)
-        
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
@@ -46,4 +46,3 @@ def user_update(user_id):
         abort(404, "Not a JSON")
     user_data = request.get__json()
     for key, value in user_data.items():
-        
