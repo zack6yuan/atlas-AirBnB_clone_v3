@@ -48,8 +48,6 @@ def city_create(state_id):
         abort(404, "Missing name")
     
         
-
-
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def city_update(city_id):
     """ Method: Update a city object """
