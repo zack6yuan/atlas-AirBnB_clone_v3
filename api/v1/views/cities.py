@@ -48,7 +48,7 @@ def city_create(state_id):
     elif 'name' not in cities:
         abort(404, "Missing name")
 
-        
+
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def city_update(city_id):
     """ Method: Update a city object """
@@ -59,5 +59,7 @@ def city_update(city_id):
         abort(404, "Not a JSON")
     city_data = request.get__json()
     for key, value in city_data.items():
-        # search dict for key
-        # return city object
+        if key not in ['id', 'state_id', 'created_at', 'updated_at']:
+            setattr(obj, key, value)
+    storage.save()
+    return jsonify(obj.to_dict()), 200
