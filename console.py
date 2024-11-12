@@ -46,11 +46,11 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     try:
                         value = int(value)
-                    except TypeError:
-                        return ("Value is not valid ")
-                    try:
-                        value = float(value)
-                        continue
+                    except:
+                        try:
+                            value = float(value)
+                        except:
+                            continue
                 new_dict[key] = value
         return new_dict
 
