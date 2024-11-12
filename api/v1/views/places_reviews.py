@@ -38,15 +38,24 @@ def review_delete(review_id):
                  methods=['POST'], strict_slashes=False)
 def review_create(place_id):
     """ Method: Create a review """
-    if place_id is not Place:
+    place = storage.get(Place, place_id)
+    if place is None:
         abort(404)
-    elif not request.is__json():
-        abort(404, "Not a JSON")
-    elif 'user_id' not in places:
-        abort(404, "Missing user_id")
-    elif user_id is not User:
-         
-    review_data = request.get__json()
+    if not request.is_json:
+        abort(400, "Not a JSON")
+    review_data = request.get_json()
+    if 'user_id' not in review_data:
+        abort(400, "Missing user_id")
+    user = storage.get(User, review_data['user_id'])
+    if user is None:
+        abort(404)
+    if 'text' not in review_data:
+        abort(400, "Missing text")
+    review_data['place_id'] = place_id
+    new_review = Review(**review_data)
+    storage.new(new_review)
+    storage.save()
+    return jsonify(new_review.to_dict()), 201
     
         
 
