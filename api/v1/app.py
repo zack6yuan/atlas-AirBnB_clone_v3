@@ -39,7 +39,7 @@ def teardown():
 
 @app.errorhandler(404)
 def not_found(error):
-    """ Handler for 404 errors that returns a 
+    """ Handler for 404 errors that returns a
         JSON-formatted 404 status code response """
     return (jsonify({"error": "Not found"}, 404))
 
