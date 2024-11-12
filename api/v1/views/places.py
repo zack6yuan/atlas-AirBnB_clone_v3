@@ -66,5 +66,5 @@ def place_update(place_id):
             # search dict for specific key
             if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
                 setattr(obj, key, value)
-        storage.save()
+            storage.save()
         return jsonify(obj.to_dict()), 200
