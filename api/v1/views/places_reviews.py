@@ -9,8 +9,13 @@ from models.user import User
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'], strict_slashes=False)
-def review_list():
+def review_list(place_id):
     """ Method: Retrieve list of all review objects of a Place """
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
+    reviews = [review.to_dict() for review in place.reviews]
+    return jsonify(reviews)
 
 
 @app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
@@ -59,15 +64,18 @@ def review_create(place_id):
     
         
 
-
 @app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
 def review_update(review_id):
     """ Method: Update a review object """
     obj = storage.get(Review, review_id)
-    if review_id is not Review:
+    if obj is None:
         abort(404)
-    elif not request.is__json():
-        abort(404, "Not a JSON")
-    user_data = request.get__json()
-    for key, value in user_data.items():
-        # search dict for specific key
+    if not request.is_json:
+        abort(400, "Not a JSON")
+    review_data = request.get_json()
+    ignore_keys = ['id', 'user_id', 'place_id', 'created_at', 'updated_at']
+    for key, value in review_data.items():
+        if key not in ignore_keys:
+            setattr(obj, key, value)
+    storage.save()
+    return jsonify(obj.to_dict()), 200
