@@ -11,7 +11,7 @@ from models.place import Place
 from models.review import Review
 
 
-@app_views.route('/status', methods=['GET'])
+@app_views.route('/status', methods=['get'])
 def status():
     ''' routes to status page '''
     return jsonify({'status': 'OK'})
