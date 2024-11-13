@@ -48,7 +48,7 @@ def amenity_create():
         abort(400, "Missing name")
     else:
         amenities = request.get_json()
-        amenity_data = amenities
+        amenity_data = amenities.to_dict()
         return (amenity_data)
 
 
