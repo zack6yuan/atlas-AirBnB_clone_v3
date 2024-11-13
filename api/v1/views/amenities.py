@@ -57,7 +57,7 @@ def amenity_create():
 def amenity_update(amenity_id):
     """ Method: Update an amenity  object """
     obj = storage.get(Amenity, amenity_id)
-    if amenity_id is not Amenity:
+    if obj is None:
         abort(404)
     elif not request.is_json():
         abort(400, "Not a JSON")
