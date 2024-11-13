@@ -10,7 +10,13 @@ from models.user import User
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'], strict_slashes=False)
 def review_list(place_id):
-    """ Method: Retrieve list of all review objects of a Place """
+    """
+    Method: 
+        - Retrieve list of all review objects of a Place
+    Raises:
+        - 404 Error - if the place_id is
+        not linked to any Place object
+    """
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -20,7 +26,13 @@ def review_list(place_id):
 
 @app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
 def review_object(review_id):
-    """ Method: Retrieve an review object """
+    """
+    Method:
+        - Retrieve an review object
+    Raises:
+        - 404 Error - if the review_id is
+        not linked to any Review object
+    """
     obj = storage.get(Review, review_id)
     if obj is not None:
         return jsonify(obj.to_dict())
@@ -29,7 +41,13 @@ def review_object(review_id):
 
 @app_views.route('/reviews/<review_id>', methods=['DELETE'], strict_slashes=False)
 def review_delete(review_id):
-    """ Method: Delete a review object """
+    """
+    Method:
+        - Delete a review object
+    Raises:
+        - 404 Error - if the review_id is
+        not linked to any Review object
+    """
     obj = storage.get(Review, review_id)
     if obj is not None:
         storage.delete(obj)
@@ -42,7 +60,23 @@ def review_delete(review_id):
 @app_views.route('/places/<place_id>/reviews',
                  methods=['POST'], strict_slashes=False)
 def review_create(place_id):
-    """ Method: Create a review """
+    """ 
+    Method:
+        - Create a review
+    Raises:
+        - 404 Error - if the place_id is
+        not linked to any Place object
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+        - 400 Error - if the dictionary does
+        not contain the key 'user_id'
+        - 404 Error - if the user_id is
+        not linked to any User object
+        - 400 Error - if the dictionary does
+        not contain the key 'text'
+    Returns:
+        - New Review with status code 201
+    """
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -68,7 +102,17 @@ def review_create(place_id):
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
 def review_update(review_id):
-    """ Method: Update a review object """
+    """
+    Method:
+        - Update a review object
+    Raises:
+        - 404 Error - if the review_id is
+        not linked to any Review object
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+    Returns:
+        - Review object with status code 200
+    """
     obj = storage.get(Review, review_id)
     if obj is None:
         abort(404)
