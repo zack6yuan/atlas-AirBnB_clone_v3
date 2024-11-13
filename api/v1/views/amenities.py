@@ -8,7 +8,9 @@ from models import storage
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def amenity_list():
-    """ Method: Retrieve list of all amenity objects """
+    """ 
+    Method: 
+        - Retrieve list of all amenity objects """
     amenities = []
     for amenity in amenities:
         amenities.append(amenity.to_dict())
@@ -18,7 +20,15 @@ def amenity_list():
 @app_views.route('/amenities/<amenity_id>',
                  methods=['GET'], strict_slashes=False)
 def amenity_object(amenity_id):
-    """ Method: Retrieve an amenity object """
+    """ 
+    Method:
+        - Retrieve an amenity object
+    Raises:
+        - 404 Error - if the amenity_id is 
+        not linked to any Amenity object
+    Returns:
+        - Amenity object
+    """
     obj = storage.all(Amenity).values()
     if obj is not None:
         return jsonify(obj.to_dict())
@@ -29,10 +39,12 @@ def amenity_object(amenity_id):
 @app_views.route('/amenities/<amenity_id>',
                  methods=['DELETE'], strict_slashes=False)
 def amenity_delete(amenity_id):
-    """ Method: Delete an amenity object
+    """ 
+    Method: 
+        - Delete an amenity object
     Raises:
-        - 404 Error, if amenity_id is not linked to 
-        any Amenity object
+        - 404 Error - if amenity_id is not 
+        linked to any Amenity object
     Returns:
         - Empty dictionary with the status code 200.
     """
@@ -48,7 +60,15 @@ def amenity_delete(amenity_id):
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def amenity_create():
-    """ Method: Create an amenity object """
+    """ 
+    Method:
+        - Create an amenity object
+    Raises:
+        - 400 Error - if amenity_id is not
+        linked to any Amentiy object
+    Returns:
+        - New Amenity with status code 201
+    """
     obj = storage.get
     if not request.is_json:
         abort(400, "Not a JSON")
@@ -63,7 +83,15 @@ def amenity_create():
 @app_views.route('/amenities/<amenity_id>',
                  methods=['PUT'], strict_slashes=False)
 def amenity_update(amenity_id):
-    """ Method: Update an amenity  object """
+    """ 
+    Method:
+        - Update an amenity object
+    Raises:
+        - 400 Error - if the HTTP request
+        body is not valid JSON
+    Returns:
+        - Amentiy object with status code 200
+    """
     obj = storage.get(Amenity, amenity_id)
     if obj is None:
         abort(404)
