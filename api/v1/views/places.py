@@ -6,6 +6,13 @@ from models.place import Place
 from models.city import City
 from models import storage
 
+
+@app_views.route('/cities/<city_id>/places',
+                 methods=['GET'], strict_slashes=False)
+def place_list():
+    """ Method: Retrieve list of all place objects of a City """
+
+
 @app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
 def place_object():
     """
