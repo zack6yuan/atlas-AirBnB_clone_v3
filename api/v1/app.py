@@ -23,12 +23,16 @@ import os
 from models import storage
 from api.v1.views import app_views
 from flask import Flask, Blueprint, jsonify
+from flask_cors import CORS
 
 
 app = Flask(__name__)
 
 
 app.register_blueprint(app_views)
+
+""" Create CORS Instance: requests from /api"""
+CORS(app, resources={r"/api/v1/*": {"origins": "0.0.0.0"}})
 
 
 @app.teardown_appcontext
