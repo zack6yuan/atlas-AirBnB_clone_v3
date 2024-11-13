@@ -9,10 +9,9 @@ from models import storage
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def state_list():
     """ Method: Retrieve list of all State objects """
-    states = []
-    for state in states:
-        states.append(state.to_dict())
-    return jsonify(states)
+    states = storage.all(State).values()
+    all_states = [state.to_dict() for state in states]
+    return jsonify(all_states)
 
 
 @app_views.route('/states/<state_id>',
@@ -48,7 +47,7 @@ def state_create(state_id):
     state_dict = request.get__json()
     if 'name' not in state_dict:
         abort(400, "Missing name")
-    return jsonify(obj.to_dict()), 200
+    return jsonify(obj.to_dict()), 201
     
 
 
