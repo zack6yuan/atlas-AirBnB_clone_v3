@@ -49,6 +49,7 @@ def state_create(state_id):
     """ Create new state object """
     new_data = State(**state_dict)
     new_data.save()
+    storage.save()
     return jsonify(new_data.to_dict()), 201
     
 
