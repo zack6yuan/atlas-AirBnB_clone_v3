@@ -20,7 +20,7 @@ def state_get(state_id):
     """ Method: Retrieve a State object """
     obj = storage.get(State, state_id)
     if obj is not None:
-        return jsonify(obj.to_dict())
+        return jsonify(obj.to_list())
     else:
         abort(404)
 
