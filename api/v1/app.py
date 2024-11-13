@@ -31,7 +31,7 @@ app = Flask(__name__)
 
 app.register_blueprint(app_views)
 
-""" Create CORS Instance: requests from /api/v1"""
+""" Create CORS Instance"""
 CORS(app, resources={r"*": {"origins": "*"}})
 
 
