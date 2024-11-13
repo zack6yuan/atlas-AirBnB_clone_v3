@@ -52,15 +52,12 @@ class FileStorage:
         """deserializes the JSON file to __objects"""
         try:
             with open(self.__file_path, 'r') as f:
-                try:
-                    jo = json.load(f)
-                except json.JSONDecodeError:
-                    return
+                jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except FileNotFoundError:
             pass
-
+    
     def delete(self, obj=None):
         """delete obj from __objects if it’s inside"""
         if obj is not None:
