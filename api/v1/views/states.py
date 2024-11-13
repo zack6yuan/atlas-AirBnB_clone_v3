@@ -42,7 +42,7 @@ def state_object(state_id):
 def state_create(state_id):
     """ Method: Create a State """
     obj = storage.get(State, state_id)
-    if not request.is__json():
+    if not request.is_json():
         abort(400, "Not a JSON")
     state_dict = request.get_json()
     if 'name' not in state_dict:
