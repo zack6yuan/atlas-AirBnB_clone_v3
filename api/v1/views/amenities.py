@@ -29,7 +29,14 @@ def amenity_object(amenity_id):
 @app_views.route('/amenities/<amenity_id>',
                  methods=['DELETE'], strict_slashes=False)
 def amenity_delete(amenity_id):
-    """ Method: Delete an amenity object """
+    """ Method: Delete an amenity object
+    Raises:
+        - 404 Error, if amenity_id is not linked to 
+        any Amenity object
+    Returns:
+        - Empty dictionary with the status code 200.
+    """
+    
     obj = storage.get(Amenity, amenity_id)
     if obj is not None:
         storage.delete(obj)
