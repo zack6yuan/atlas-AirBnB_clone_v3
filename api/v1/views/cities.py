@@ -10,7 +10,16 @@ from models import storage
 @app_views.route('/states/<state_id>/cities',
                  methods=['GET'], strict_slashes=False)
 def city_list(state_id):
-    """ Method: Retrieve list of all city objects of a state """
+    """
+    Method: 
+        - Retrieve list of all 
+        city objects of a state
+    Raises:
+        - 404 Error - if the state_id
+        is not linked to any State object
+    Returns:
+        - List of all city objects of a state
+    """
     obj = storage.get(State, state_id)
     if not obj:
         abort(404)
@@ -20,7 +29,15 @@ def city_list(state_id):
 
 @app_views.route('cities/<city_id>', methods=['GET'], strict_slashes=False)
 def city_object(city_id):
-    """ Method: Retrieve a city object """
+    """
+    Method: 
+        - Retrieve a city object
+    Raises:
+        - 404 Error - if the city_id
+        is not linked to any City object
+    Returns:
+        - City object
+    """
     obj = storage.get(City, city_id)
     if obj is not None:
         return jsonify(obj.to_dict())
@@ -30,7 +47,16 @@ def city_object(city_id):
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def city_delete(city_id):
-    """ Method: Delete a city object """
+    """
+    Method:
+        - Delete a city object
+    Raises:
+        - 404 Error: If the city_id
+        is not linked to any City object
+    Returns:
+        - Empty directory with the status 
+        code 200
+    """
     obj = storage.get(City, city_id)
     if obj:
         storage.delete(obj)
@@ -43,19 +69,39 @@ def city_delete(city_id):
 @app_views.route('/states/<state_id>/cities',
                  methods=['POST'], strict_slashes=False)
 def city_create(state_id):
-    """ Method: Create a city object """
+    """
+    Method:
+        - Create a city object
+    Raises:
+        - 404 Error - if the state_id
+        is not lined to any State object
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+        - 400 Error - If the dictionary
+        does not contain the key 'name'
+    Returns:
+        - New city with status code 201
+    """
     obj = storage.get(State, state_id)
     if obj is None:
         abort(404)
     elif not request.is_json():
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
     elif 'name' not in obj.to_dict():
-        abort(404, "Missing name")
+        abort(400, "Missing name")
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def city_update(city_id):
-    """ Method: Update a city object """
+    """
+    Method: 
+        - Update a city object
+    Raises":
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+    Returns:
+        - City object with the status code 200
+    """
     obj = storage.get(City, city_id)
     if obj is None:
         abort(404)
