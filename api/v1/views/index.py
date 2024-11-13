@@ -22,13 +22,20 @@ classes = {
 
 @app_views.route('/status')
 def status():
-    ''' routes to status page '''
+    """
+    Method:
+        - Route to status page
+    """
     return jsonify({'status': 'OK'})
 
 
 @app_views.route('/stats')
 def count():
-    '''retrieves the number of each objects by type'''
+    """
+    Method:
+        - Retrieve the number of each
+        objects by type
+    """
     count_dict = {}
     for cls in classes:
         count_dict[cls] = storage.count(classes[cls])
