@@ -14,15 +14,14 @@ def state_list():
     return jsonify(all_states)
 
 
-@app_views.route('/states/<state_id>',
-                 methods=['GET'], strict_slashes=False)
-def state_get(state_id):
-    """ Method: Retrieve a State object """
-    obj = storage.get(State, state_id)
-    if obj is not None:
-        return jsonify(obj.to_dict())
-    else:
+@app_views.route('/states/<state_id>', methods=['GET'])
+def get_state(state_id):
+    '''Retrieves a State object'''
+    all_states = storage.all("State").values()
+    state_obj = [obj.to_dict() for obj in all_states if obj.id == state_id]
+    if state_obj == []:
         abort(404)
+    return jsonify(state_obj[0])
 
 
 @app_views.route('/states/<state_id>',
