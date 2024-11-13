@@ -45,11 +45,11 @@ def city_delete(city_id):
 def city_create(state_id):
     """ Method: Create a city object """
     obj = storage.get(State, state_id)
-    if state_id is not State:
+    if obj is None:
         abort(404)
     elif not request.is_json():
         abort(404, "Not a JSON")
-    elif 'name' not in obj:
+    elif 'name' not in obj.to_dict():
         abort(404, "Missing name")
 
 
