@@ -42,6 +42,7 @@ def amenity_delete(amenity_id):
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def amenity_create():
     """ Method: Create an amenity object """
+    obj = storage.get
     if not request.is_json:
         abort(400, "Not a JSON")
     elif 'name' not in amenities:
