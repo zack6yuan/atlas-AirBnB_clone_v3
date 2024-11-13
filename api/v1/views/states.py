@@ -8,7 +8,15 @@ from models import storage
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def state_list():
-    """ Method: Retrieve list of all State objects """
+    """
+    Method:
+        - Retrieve list of all State objects
+    Raises:
+        - 404 Error - if the state_id is
+        not linked to any State object
+    Returns:
+        - List of all state objects
+    """
     states = storage.all(State).values()
     all_states = [state.to_dict() for state in states]
     return jsonify(all_states)
@@ -16,7 +24,15 @@ def state_list():
 
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id):
-    '''Retrieves a State object'''
+    """
+    Method:
+        - Retrieves a State object
+    Raises:
+        - 404 Error - if the state_id is
+        not linked to any State object
+    Returns:
+        - State object
+    """
     all_states = storage.all("State").values()
     state_obj = [obj.to_dict() for obj in all_states if obj.id == state_id]
     if state_obj == []:
@@ -27,7 +43,15 @@ def get_state(state_id):
 @app_views.route('/states/<state_id>',
                  methods=['DELETE'], strict_slashes=False)
 def state_object(state_id):
-    """ Method: Delete a State object """
+    """
+    Method:
+        - Delete a State object
+    Raises:
+        - 404 Error - if the state_id is
+        not linked to any State object
+    Returns:
+        - Empty dictionary with status code 200
+    """
     obj = storage.get(State, state_id)
     if obj is not None:
         storage.delete(obj)
@@ -39,7 +63,17 @@ def state_object(state_id):
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def state_create(state_id):
-    """ Method: Create a State """
+    """
+    Method:
+        - Create a State
+    Raises:
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+        400 Error - If the dictionary does
+        not contain the key 'name'
+    Returns:
+        - New State with status code 201
+    """
     if not request.is_json():
         abort(400, "Not a JSON")
     state_dict = request.get_json()
@@ -54,7 +88,17 @@ def state_create(state_id):
 @app_views.route('/states/<state_id>',
                  methods=['PUT'], strict_slashes=False)
 def state_update(state_id):
-    """ Method: Update State object """
+    """
+    Method:
+        - Update State object
+    Raises:
+        - 404 Error - if the state_id is
+        not linked to any State object
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+    Returns:
+        - State object with status code 200
+    """
     obj = storage.get(State, state_id)
     if state_id is not State:
         abort(404)
