@@ -8,13 +8,26 @@ from models import storage
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def user_list():
-    """ Method: Retrieve list of all user objects """
+    """
+    Method:
+        - Retrieve list of all user objects
+    Returns:
+        - List of all user objects
+    """
     users = storage.all(User).values()
     return jsonify([user.to_dict() for user in users])
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
-    """ Method: Retrieve a user object """
+    """
+    Method:
+        - Retrieve a user object
+    Raises:
+        - 404 Error - if the user_id is
+        not linked to any User object
+    Returns:
+        - User object
+    """
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
@@ -22,7 +35,17 @@ def get_user(user_id):
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
-    """ Method: Create a new user """
+    """
+    Method:
+        - Create a new user
+    Raises:
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+        - 400 Error - if the dictionary
+        does not contain the key 'email
+    Returns:
+        - New User with status code 201
+    '"""
     if not request.is_json:
         abort(400, "Not a JSON")
     user_data = request.get_json()
@@ -37,7 +60,17 @@ def create_user():
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
-    """ Method: Update a user object """
+    """
+    Method:
+        - Update a user object
+    Raises:
+        - 404 Error - if the user_id is
+        not linked to any User object
+        - 400 Error - if the HTTP body
+        request is not valid JSON
+    Returns:
+        - The User object eith staus code 200
+    """
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
