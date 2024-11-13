@@ -22,7 +22,6 @@ def state_list():
     return jsonify(all_states)
 
 
-<<<<<<< HEAD
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id):
     """
@@ -37,16 +36,6 @@ def get_state(state_id):
     all_states = storage.all("State").values()
     state_obj = [obj.to_dict() for obj in all_states if obj.id == state_id]
     if state_obj == []:
-=======
-@app_views.route('/states/<state_id>',
-                 methods=['GET'], strict_slashes=False)
-def state_get(state_id):
-    """ Method: Retrieve a State object """
-    obj = storage.get(State, state_id)
-    if obj is not None:
-        return jsonify(obj.to_dict())
-    else:
->>>>>>> ff66b348580417c4be7fad0014225e2b6a5fb5b3
         abort(404)
 
 
