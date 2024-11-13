@@ -69,7 +69,7 @@ def update_user(user_id):
         - 400 Error - if the HTTP body
         request is not valid JSON
     Returns:
-        - The User object eith staus code 200
+        - The User object with staus code 200
     """
     user = storage.get(User, user_id)
     if user is None:
