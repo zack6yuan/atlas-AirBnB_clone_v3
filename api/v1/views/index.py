@@ -10,9 +10,9 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 
-classes = {"users": "User", "places": "Place", "states": "State",
-           "cities": "City", "amenities": "Amenity",
-           "reviews": "Review"}
+classes = {"users": User, "places": Place, "states": State,
+           "cities": City, "amenities": Amenity,
+           "reviews": Review}
 
 
 @app_views.route('/status')
