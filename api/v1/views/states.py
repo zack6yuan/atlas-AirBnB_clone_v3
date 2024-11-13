@@ -7,19 +7,16 @@ from models import storage
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
-def state_list():
+def get_states():
     """
     Method:
-        - Retrieve list of all State objects
-    Raises:
-        - 404 Error - if the state_id is
-        not linked to any State object
+        - Retrieves the list of all State objects
     Returns:
-        - List of all state objects
+        - List of all State objects
     """
-    states = (storage.all(State).values())
-    all_states = [state.to_dict() for state in states]
-    return jsonify(all_states)
+    all_states = storage.all("State").values()
+    state_list = [state.to_dict() for state in all_states]
+    return jsonify(state_list)
 
 
 @app_views.route('/states/<state_id>', methods=['GET'])
