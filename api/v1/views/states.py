@@ -44,7 +44,7 @@ def state_create(state_id):
     obj = storage.get(State, state_id)
     if not request.is__json():
         abort(400, "Not a JSON")
-    state_dict = request.get__json()
+    state_dict = request.get_json()
     if 'name' not in state_dict:
         abort(400, "Missing name")
     return jsonify(obj.to_dict()), 201
@@ -58,9 +58,9 @@ def state_update(state_id):
     obj = storage.get(State, state_id)
     if state_id is not State:
         abort(404)
-    elif not request.is__json():
+    elif not request.is_json():
         abort(404, "Not a JSON")
-    state_data = request.get__json()
+    state_data = request.get_json()
     for key, value in state_data.items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(obj, key, value)
