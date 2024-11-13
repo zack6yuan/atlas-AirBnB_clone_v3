@@ -43,12 +43,12 @@ def place_create(city_id):
     city = storage.get(City, city_id)
     if city_id is not City:
         abort(404)
-    if not request.is__json():
+    if not request.is_json():
         abort(404, "Not a JSON")
     if 'user_id' not in Place:
         abort(400, "Missing name")
     else:
-        places = request.get__json()
+        places = request.get_json()
         place_data = places
         return (place_data)
 
@@ -59,9 +59,9 @@ def place_update(place_id):
     obj = storage.get(Place, place_id)
     if place_id is not Place:
         abort(404)
-    elif not request.is__json():
+    elif not request.is_json():
         abort(404, "Not a JSON")
-    place_data = request.get__json()
+    place_data = request.get_json()
     for key, value in place_data.items():
             # search dict for specific key
             if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
