@@ -57,7 +57,7 @@ def city_create(state_id):
 def city_update(city_id):
     """ Method: Update a city object """
     obj = storage.get(City, city_id)
-    if city_id is not City:
+    if obj is None:
         abort(404)
     elif not request.is_json():
         abort(404, "Not a JSON")
