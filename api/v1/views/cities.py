@@ -22,7 +22,7 @@ def city_list(state_id):
 def city_object(city_id):
     """ Method: Retrieve a city object """
     obj = storage.get(City, city_id)
-    if obj:
+    if obj is not None:
         return jsonify(obj.to_dict())
     else:
         abort(404)
