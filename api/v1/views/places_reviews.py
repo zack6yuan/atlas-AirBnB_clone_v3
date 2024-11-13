@@ -49,6 +49,8 @@ def review_create(place_id):
     if not request.is_json:
         abort(400, "Not a JSON")
     review_data = request.get_json()
+    if review_data is None:
+        abort(400, "Not a JSON")
     if 'user_id' not in review_data:
         abort(400, "Missing user_id")
     user = storage.get(User, review_data['user_id'])
